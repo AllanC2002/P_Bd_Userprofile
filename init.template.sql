@@ -27,6 +27,7 @@ CREATE TABLE Profile (
     Description NVARCHAR(255),
     Id_preferences INT,
     Id_type INT,
+    Status_account INT CHECK (Status IN (0, 1)), --1 active -- 0 desactive
     FOREIGN KEY (Id_preferences) REFERENCES Preferences(Id_preferences),
     FOREIGN KEY (Id_type) REFERENCES Types(Id_type)
 );
