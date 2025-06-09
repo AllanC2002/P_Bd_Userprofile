@@ -1,7 +1,10 @@
 #!/bin/bash
 # Verify of the sets about the variables 
-if [[ -z "$APP_USER_NAME" || -z "$APP_USER_PASSWORD" ]]; then
-  echo "crashed: You need to establish APP_USER_NAME and APP_USER_PASSWORD"
+if [[ -z "$MSSQL_SA_PASSWORD" || -z "$APP_USER_NAME" || -z "$APP_USER_PASSWORD" ]]; then
+  echo "Crashed: You need this variables:"
+  echo "  - MSSQL_SA_PASSWORD"
+  echo "  - APP_USER_NAME"
+  echo "  - APP_USER_PASSWORD"
   exit 1
 fi
 
