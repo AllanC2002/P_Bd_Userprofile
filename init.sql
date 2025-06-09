@@ -40,3 +40,10 @@ CREATE TABLE Followers (
     FOREIGN KEY (Id_Follower) REFERENCES Profile(Id_User),
     FOREIGN KEY (Id_Following) REFERENCES Profile(Id_User)
 );
+-- Login and user
+CREATE LOGIN {{APP_USER_NAME}} WITH PASSWORD = '{{APP_USER_PASSWORD}}';
+GO
+USE UserProfile;
+CREATE USER {{APP_USER_NAME}} FOR LOGIN {{APP_USER_NAME}};
+ALTER ROLE db_owner ADD MEMBER {{APP_USER_NAME}};
+GO
