@@ -1,10 +1,5 @@
-FROM mcr.microsoft.com/mssql/server:2022-latest
+FROM mysql:8.0
 
-ENV ACCEPT_EULA=Y
+COPY init.sql /docker-entrypoint-initdb.d/
 
-COPY --chmod=755 entrypoint.sh /entrypoint.sh
-COPY init.template.sql /init.template.sql
-
-EXPOSE 1433
-
-CMD ["/entrypoint.sh"]
+EXPOSE 3307
