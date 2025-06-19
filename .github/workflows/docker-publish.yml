@@ -122,4 +122,4 @@ jobs:
                 -p 3307:3306 \
                 -e MYSQL_ROOT_PASSWORD=${{ secrets.MYSQL_PASSROOT }} \
                 -e MYSQL_DATABASE=${{ secrets.MYSQL_DB }} \
-                ${{ secrets.DOCKER_REPO }}
+                ${{ secrets.DOCKER_REPO }}:qa
