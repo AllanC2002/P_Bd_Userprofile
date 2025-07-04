@@ -4,10 +4,10 @@ on:
   schedule:
     - cron: '35 18 * * *'
   push:
-    branches: [ "main" ]
+    branches: [ "qa" ]
     tags: [ 'v*.*.*' ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "qa" ]
 
 env:
   REGISTRY: docker.io
@@ -69,7 +69,7 @@ jobs:
         run: echo "${TAGS}" | xargs -I {} cosign sign --yes {}@${DIGEST}
 
   deploy:
-      name: main mysql
+      name: qa mysql
       needs: build
       runs-on: ubuntu-latest
 
@@ -77,15 +77,15 @@ jobs:
         - name: Deploy EC2
           uses: appleboy/ssh-action@v1.0.3
           with:
-            host: ${{ secrets.EC2_IP_PROD }}
+            host: ${{ secrets.EC2_IP }}
             username: ubuntu
-            key: ${{ secrets.EC2_PEM_PROD }}
+            key: ${{ secrets.EC2_PEM }}
             script: |
               docker stop container_bduserprofile || true
               docker rm container_bduserprofile || true
-              docker rmi ${{ secrets.DOCKER_REPO }}:main || true
+              docker rmi ${{ secrets.DOCKER_REPO }}:qa || true
 
-              docker pull ${{ secrets.DOCKER_REPO }}:main
+              docker pull ${{ secrets.DOCKER_REPO }}:qa
 
               docker run -d \
                 --restart always \
@@ -93,4 +93,4 @@ jobs:
                 -p 3307:3306 \
                 -e MYSQL_ROOT_PASSWORD=${{ secrets.MYSQL_PASSROOT }} \
                 -e MYSQL_DATABASE=${{ secrets.MYSQL_DB }} \
-                ${{ secrets.DOCKER_REPO }}:main
+                ${{ secrets.DOCKER_REPO }}:qa
