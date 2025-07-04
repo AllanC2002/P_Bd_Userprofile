@@ -34,5 +34,5 @@ CREATE TABLE Followers (
     CHECK (Status IN (0, 1))
 );
 
-INSERT INTO Preferences (Description) VALUES ('Musica'), ('Viajes'), ('Deportes'),('Cine'),('Teatro'),('Comedia');
-INSERT INTO Types (Description) VALUES ('Personal'), ('Empresa');
+INSERT INTO Preferences (Description) VALUES ('Music'), ('Trips'), ('Sports'),('Cinema'),('Theater'),('Comedy');
+INSERT INTO Types (Description) VALUES ('Personal'), ('Company');
